@@ -1,19 +1,77 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-import './App.css'
 import Inputbox from './components/Inputbox'
+import useCurrencyInfo from './hooks/useCurrencyInfo'
+import { useState, ChangeEvent, FormEvent } from 'react';
+
+// interface AppProps { }
+
+// interface CurrencyInfo {
+//   [key: string]: number;
+// }
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [amount, setAmount] = useState<number>(0)
+  const [from, setFrom] = useState<string>("usd")
+  const [to, setTo] = useState<string>("inr")
+
+
+  const [convertedAmount, setConvertedAmount] = useState<number>(0)
+
+  const currencyInfo = useCurrencyInfo(from);
+
+  const options = Object.keys(currencyInfo);
+
+  const swap = () => {
+    setFrom(to)
+    setTo(from)
+    // setAmount(convertedAmount)
+    // setConvertedAmount(amount)
+
+  };
+
+  const convert = () => {
+    setConvertedAmount(amount * currencyInfo[to])
+  }
+
+
 
   return (
     <>
-      <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full h-screen flex justify-center">
-        <div className="flex-col h-96 w-2/6 rounded-xl hover:shadow-2xl mt-40 bg-black/30 backdrop-blur-sm border" >
-          <Inputbox />
-          <Inputbox />
-          <div className="flex justify-center">
-            <button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 h-14 w-11/12 rounded-xl mt-4 flex items-center justify-center text-2xl text-white">Convert</button>
+      <div className="bg-gradient-to-r from-pink-500 via-yellow-500 to-pink-500 w-full h-screen flex-col justify-center">
+        <div className="flex justify-center bg-gradient-to-r from-rose-600 to-purple-600">
+          <h1 className="text-4xl font-mono p-3 text-white">Currency Converter</h1>
+        </div>
+        <div className="flex justify-center mt-32 relative">
+          <div className="flex-col h-96 w-2/6 rounded-xl hover:shadow-2xl bg-black/30 backdrop-blur-sm border" >
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              convert()
+
+            }}>
+              <Inputbox
+                label="From"
+                amount={amount}
+                currencyOptions={options}
+                onCurrencyChange={(currency) => setFrom(currency)}
+                selectCurrency={from}
+                onAmountChange={(amount) => setAmount(amount)} />
+
+
+
+              <Inputbox
+                label="To"
+                amount={convertedAmount}
+                currencyOptions={options}
+                onCurrencyChange={(currency) => setTo(currency)}
+                selectCurrency={to}
+                amountDisable />
+
+              <div className="flex justify-center">
+                <button type="submit" className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 h-14 w-11/12 rounded-xl mt-4 flex items-center justify-center text-2xl text-white">Convert</button>
+              </div>
+            </form>
+            <div className="absolute cursor-pointer top-0">
+              <img src="3.png" className="h-16 w-16" onClick={swap} />
+            </div>
           </div>
         </div>
       </div>
