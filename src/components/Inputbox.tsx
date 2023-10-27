@@ -30,10 +30,10 @@ function Inputbox({
     <>
       <div className="bg-white rounded-xl flex h-32 w-11/12 mt-5 ml-auto mr-auto shadow-inner">
         <div className="w-1/2">
-          <label htmlFor={amountInputId} className="text-left text-2xl text-gray-400 p-2">{label}</label>
+          <label htmlFor={amountInputId} className="text-left text-2xl text-gray-400 float-left p-3">{label}</label>
           <input
             id={amountInputId}
-            className="bg-transparent w-full outline-none py-8 text-2xl p-3"
+            className="bg-transparent w-full outline-none text-3xl p-3"
             type="number"
             disabled={amountDisable}
             value={amount.toString()}

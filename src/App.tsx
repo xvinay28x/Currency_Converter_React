@@ -1,12 +1,7 @@
 import Inputbox from './components/Inputbox'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState } from 'react';
 
-// interface AppProps { }
-
-// interface CurrencyInfo {
-//   [key: string]: number;
-// }
 
 function App() {
   const [amount, setAmount] = useState<number>(0)
@@ -23,8 +18,8 @@ function App() {
   const swap = () => {
     setFrom(to)
     setTo(from)
-    // setAmount(convertedAmount)
-    // setConvertedAmount(amount)
+    setAmount(convertedAmount)
+    setConvertedAmount(amount)
 
   };
 
@@ -69,11 +64,12 @@ function App() {
                 <button type="submit" className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 h-14 w-11/12 rounded-xl mt-4 flex items-center justify-center text-2xl text-white">Convert</button>
               </div>
             </form>
-            <div className="absolute cursor-pointer top-0">
-              <img src="3.png" className="h-16 w-16" onClick={swap} />
-            </div>
+          </div>
+          <div className="flex absolute cursor-pointer mt-32">
+            <img src="3.png" className="h-16 w-16" onClick={swap} />
           </div>
         </div>
+        <h2 className="flex justify-center mt-24">&#169; 2023 Copywrite by Vinay Garg</h2>
       </div>
     </>
   )
